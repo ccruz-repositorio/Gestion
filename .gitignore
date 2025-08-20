@@ -1,0 +1,104 @@
+# Archivo .gitignore estándar para proyectos C# y .NET
+
+# Directorios de compilación y objetos
+[Bb]in/
+[Oo]bj/
+[Dd]ebug/
+[Rr]elease/
+*.suo
+*.user
+*.userosscfg
+*.vspscc
+*.vssscc
+*.bak
+*.log
+[Tt]est[Rr]esults/
+*.trx
+*.coverage
+*.vs/
+
+# Paquetes NuGet
+packages/              # Directorio de paquetes NuGet (para proyectos antiguos, los nuevos usan global-packages)
+*.nupkg
+*.snupkg
+*.lock.json            # Archivos de bloqueo de paquetes (ej. packages.lock.json)
+
+# Archivos de configuración y secretos (¡IMPORTANTE!)
+# Ignora archivos de configuración con datos sensibles o específicos del entorno local.
+# Asegúrate de que tu appsettings.json principal (con valores por defecto/no sensibles) SÍ esté en el repo.
+appsettings.Development.json
+appsettings.Production.json
+appsettings.Staging.json
+*.user.config
+*.config.old
+*.config.bak
+UserSecrets/           # Carpeta de secretos de usuario
+.env                   # Posibles archivos de entorno
+
+# Archivos de Visual Studio y herramientas de desarrollo
+*.vs/# Carpeta oculta de Visual Studio 2017+
+.vs/# Asegura que se ignore incluso si no está oculto
+*.csproj.user
+*.resharper
+*.DotSettings
+*.pidb
+*.dbmdl
+*.publish.xml
+*.webuser
+*.sdf                  # Archivos de SQL Server Compact Edition
+*.vsto
+*.tlog
+*.lastbuildstate
+*.VC.db
+*.VC.VC.opendb
+
+# Archivos de base de datos local (ej. SQL Server Express LocalDB)
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Archivos de depuración
+*.pdb                  # Archivos de símbolos de depuración
+*.ilk
+*.meta
+*.tmp
+
+# Archivos de control de versiones (si no es Git)
+*.scc
+
+# Node.js (si tu proyecto .NET tiene un frontend Node/npm)
+node_modules/
+npm-debug.log
+yarn-error.log
+.npm/
+
+# Otros archivos generados
+*.zip
+*.tar
+*.gz
+*.rar
+*.7z
+*.dll
+*.exe
+*.obj
+*.lib
+*.exp
+*.com
+*.class
+*.jar
+*.war
+*.ear
+*.apk
+*.ipa
+*.app
+
+# Archivos de macOS
+.DS_Store
+
+# Archivos de Linux
+*~
+.#*
+*.swp
+.fuse_hidden*
+.nfs*
