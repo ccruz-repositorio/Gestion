@@ -2,6 +2,7 @@
 using Gestion.Application.Enums;
 using Gestion.Application.Interfaces.Repositories;
 using Gestion.Application.Interfaces.Services;
+using Gestion.Application.UnitOfWork;
 using Gestion.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -13,18 +14,18 @@ namespace Gestion.Application.Services
 {
     public class SalonService : ISalonService
     {
-        private readonly ISalonRepository _salonRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public SalonService(ISalonRepository salonRepository)
+        public SalonService(IUnitOfWork unitOfWork)
         {
-            _salonRepository = salonRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<(ResponseCode code, string message, IEnumerable<SalonDto>? data)> GetSalonesAsync()
         {
             try
             {
-                var salones = await _salonRepository.GetAllAsync();
+                var salones = await _unitOfWork.Salon.GetAllAsync();
                 if (salones == null || !salones.Any())
                 {
                     return (ResponseCode.NotFound, "No tiene configurados salones aun.", null);

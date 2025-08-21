@@ -24,7 +24,7 @@ namespace Gestion.Infrastructure.Repositories
         public async Task AddAsync(Reserva reserva)
         {
             await _context.Reserva.AddAsync(reserva);
-            await _context.SaveChangesAsync();
+            //await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Gestion.Application.Enums;
 using Gestion.Application.Interfaces.Repositories;
 using Gestion.Application.Services;
+using Gestion.Application.UnitOfWork;
 using Gestion.Domain.Models;
 using Moq;
 using Xunit;
@@ -9,13 +10,13 @@ namespace Gestion.Tests
 {
     public class SalonServiceTests
     {
-        private readonly Mock<ISalonRepository> _mockSalonRepository;
+        private readonly Mock<IUnitOfWork> _unitOfWork;
         private readonly SalonService _salonService;
 
         public SalonServiceTests()
         {
-            _mockSalonRepository = new Mock<ISalonRepository>();
-            _salonService = new SalonService(_mockSalonRepository.Object);
+            _unitOfWork = new Mock<IUnitOfWork>();
+            _salonService = new SalonService(_unitOfWork.Object);
         }
 
         [Fact]
@@ -27,7 +28,7 @@ namespace Gestion.Tests
                 new Salon { IdSalon = 1, Nombre = "Salon Cristal" },
                 new Salon { IdSalon = 2, Nombre = "Salon Esmeralda" }
             };
-            _mockSalonRepository.Setup(repo => repo.GetAllAsync())
+            _unitOfWork.Setup(repo => repo.Salon.GetAllAsync())
                                 .ReturnsAsync(salonesExistentes);
 
             // Act
@@ -43,7 +44,7 @@ namespace Gestion.Tests
         public async Task GetSalonesAsync_NoSalonesEncontrados_RetornaNotFound()
         {
             // Arrange
-            _mockSalonRepository.Setup(repo => repo.GetAllAsync())
+            _unitOfWork.Setup(repo => repo.Salon.GetAllAsync())
                                 .ReturnsAsync(new List<Salon>());
 
             // Act

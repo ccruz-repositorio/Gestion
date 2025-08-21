@@ -2,6 +2,7 @@ using Gestion.Application.DTOs;
 using Gestion.Application.Enums;
 using Gestion.Application.Interfaces.Repositories;
 using Gestion.Application.Services;
+using Gestion.Application.UnitOfWork;
 using Gestion.Domain.Models;
 using Moq;
 using Xunit;
@@ -10,13 +11,13 @@ namespace Gestion.Tests
 {
     public class ReservaServiceTests
     {
-        private readonly Mock<IReservaRepository> _mockReservaRepository;
+        private readonly Mock<IUnitOfWork> _unitOfWork;
         private readonly ReservaService _reservaService;
 
         public ReservaServiceTests()
         {
-            _mockReservaRepository = new Mock<IReservaRepository>();
-            _reservaService = new ReservaService(_mockReservaRepository.Object);
+            _unitOfWork = new Mock<IUnitOfWork>();
+            _reservaService = new ReservaService(_unitOfWork.Object);
         }
 
         [Fact]
@@ -31,7 +32,7 @@ namespace Gestion.Tests
                 HoraFin = new TimeSpan(11, 0, 0),
                 NombreCliente = "Test User"
             };
-            _mockReservaRepository.Setup(repo => repo.GetByFechaAsync(It.IsAny<DateTime>()))
+            _unitOfWork.Setup(repo => repo.Reserva.GetByFechaAsync(It.IsAny<DateTime>()))
                                   .ReturnsAsync(new List<Reserva>()); // No hay reservas existentes
 
             // Act
@@ -94,7 +95,7 @@ namespace Gestion.Tests
                 NombreCliente = "Existing User"
             };
 
-            _mockReservaRepository.Setup(repo => repo.GetByFechaAsync(It.IsAny<DateTime>()))
+            _unitOfWork.Setup(repo => repo.Reserva.GetByFechaAsync(It.IsAny<DateTime>()))
                                   .ReturnsAsync(new List<Reserva> { reservaExistente });
 
             var reservaDtoNueva = new ReservaDto
@@ -121,7 +122,7 @@ namespace Gestion.Tests
             {
                 new Reserva { IdSalon = 1, FechaReserva = new DateTime(2025, 8, 25), HoraInicio = new TimeSpan(10, 0, 0), HoraFin = new TimeSpan(11, 0, 0) }
             };
-            _mockReservaRepository.Setup(repo => repo.GetByFechaAsync(It.IsAny<DateTime>()))
+            _unitOfWork.Setup(repo => repo.Reserva.GetByFechaAsync(It.IsAny<DateTime>()))
                                   .ReturnsAsync(reservasExistentes);
 
             // Act
@@ -136,7 +137,7 @@ namespace Gestion.Tests
         public async Task GetReservasPorFechaAsync_NoReservasEncontradas_RetornaNotFound()
         {
             // Arrange
-            _mockReservaRepository.Setup(repo => repo.GetByFechaAsync(It.IsAny<DateTime>()))
+            _unitOfWork.Setup(repo => repo.Reserva.GetByFechaAsync(It.IsAny<DateTime>()))
                                   .ReturnsAsync(new List<Reserva>());
 
             // Act

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="" readonly="0" foreign_keys="" case_sensitive_like="" temp_store="" wal_autocheckpoint="" synchronous=""/><attached/><window><main_tabs open="structure browser pragmas query" current="3"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1678"/><column_width id="4" width="0"/></tab_structure><tab_browse><table title="." custom_title="0" dock_id="6" table="0,0:"/><dock_state state="000000ff00000000fd00000001000000020000000000000000fc0100000006fb000000160064006f0063006b00420072006f00770073006500310100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500330100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500340100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500350100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500360100000000ffffffff0000011e00ffffff000000000000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings/></tab_browse><tab_sql><sql name="SQL 1*">CREATE TABLE Salon (
+
+    IdSalon INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+
+    Nombre TEXT NOT NULL
+
+);
+
+
+
+CREATE TABLE Reserva (
+
+    IdReserva INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+
+    IdSalon INTEGER NOT NULL,
+
+    FechaReserva TEXT NOT NULL,
+
+    HoraInicio TEXT NOT NULL,
+
+    HoraFin TEXT NOT NULL,
+
+    NombreCliente TEXT NOT NULL,
+
+    FOREIGN KEY (IdSalon) REFERENCES Salon(IdSalon) 
+
+);
+
+
+
+-- Insertar datos en la tabla Salon
+
+INSERT INTO Salon (Nombre) VALUES
+
+('Salon Dorado'),
+
+('Salon Esmeralda'),
+
+('Salon Cristal');
+
+
+
+-- Insertar datos en la tabla Reserva
+
+INSERT INTO Reserva (IdSalon, FechaReserva, HoraInicio, HoraFin, NombreCliente) VALUES
+
+(1, '2025-08-20', '09:00:00', '11:00:00', 'Juan Perez'), -- Reserva normal
+
+(1, '2025-08-20', '13:00:00', '15:00:00', 'Ana Gomez'),  -- Reserva normal en el mismo día
+
+(2, '2025-08-21', '10:00:00', '12:00:00', 'Luis Fernandez'),-- Reserva en otro salón
+
+(3, '2025-08-22', '16:00:00', '18:00:00', 'Sofia Rodriguez');-- Reserva en otro día y salón
+
+</sql><current_tab id="0"/></tab_sql></sqlb_project>
